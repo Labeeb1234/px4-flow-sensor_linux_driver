@@ -8,7 +8,7 @@
 
 
 
-- **Note**: The sensor support is depreciated as of now.
+- **Note**: The sensor is officially depreciated as of now, don't mind that though.
 
 
 <div>
