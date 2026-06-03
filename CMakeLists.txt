@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(optical_flow)
 
-find_library(I2C_LIB i2c)
+find_library(I2C_LIB i2c) # currently this lib is unused make use it if required (check feasibility)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
    add_compile_options(-Wall -Wextra -Wpedantic)
