@@ -1,40 +1,23 @@
-cmake_minimum_required(VERSION 3.8)
-project(optical_flow C)
+cmake_minimum_required(VERSION 3.10)
+project(optical_flow)
 
-# if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-#   add_compile_options(-Wall -Wextra -Wpedantic)
-# endif()
+find_library(I2C_LIB i2c)
 
-# Enable C standard
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-
-# Compiler warnings for C
-if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-set(
-  cmavlink_v2_path
-  ${CMAKE_CURRENT_SOURCE_DIR}/c_library_v2
+
+add_executable(test_optical_flow src/test.cpp)
+target_include_directories(test_optical_flow
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-
-message(STATUS "MAVLink path: ${cmavlink_v2_path}")
-
-
-# find dependencies
-find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
-
-include_directories(
-  ${cmavlink_v2_path}
+target_link_libraries(test_optical_flow 
+        PRIVATE
+        ${I2C_LIB}
 )
-
-
-add_executable(test_optical_flow src/test.c)
-
+# message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}")
 
 install(
   TARGETS
@@ -42,18 +25,3 @@ install(
   DESTINATION lib/${PROJECT_NAME}
 )
 
-
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # comment the line when a copyright and license is added to all source files
-  set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # comment the line when this package is in a git repo and when
-  # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
-
-ament_package()
