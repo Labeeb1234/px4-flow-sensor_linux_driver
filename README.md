@@ -31,8 +31,7 @@
 
 - Not exactly a fully fledged driver yet there is only one test script that displays the data
 - Need to be improved for usage not required
-
-
+- Wrote an improved lib for the flow sensor drivers (need to test though) --> need to update CMake build instructions
 
 ## VIO-Implementation (Improve Robot Base Localization )
 
